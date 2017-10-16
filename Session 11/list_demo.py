@@ -64,3 +64,6 @@ def binary_search(word):
         word = line.strip()
         total_count = total_count + 1
         
+
+
+
