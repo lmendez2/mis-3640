@@ -3,17 +3,17 @@ class Time:
     attributes: hour, minute, second
     """
 
-# time = Time()
-# time.hour = 1
-# time.minute = 50
-# time.second = 30
+time = Time()
+time.hour = 1
+time.minute = 50
+time.second = 30
 
 # print(time.hour, time.minute, time.second)
 
-# later = Time()
-# later.hour = time.hour
-# later.minute = time.minute + 5
-# later.second = time.second
+later = Time()
+later.hour = time.hour
+later.minute = time.minute + 5
+later.second = time.second
 
 # print(later.hour, later.minute, later.second)
 
@@ -26,13 +26,21 @@ def print_time(t):
     """Prints a string representation of the time.
     t: Time object
     """
+    print('{:2d}:{:2d}:{:2d}'.format(t.hour,t.minute,t.second))
 
-# print_time(time)
+print_time(time)
 # print_time(later)
 
 
 def is_after(t1, t2):
     """Returns True if t1 is after t2; false otherwise."""
+    if t1.hour > t2.hour: 
+        return True
+    elif t1.hour < t2.hour: 
+        return False
+    elif t1.minute > t2.minute: 
+        return True
+    
 
 
 # print(is_after(time, later))
