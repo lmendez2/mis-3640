@@ -1,6 +1,7 @@
 from twython import Twython
 import random 
 import string
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Replace the following strings with your own keys and secrets
 TOKEN = '926141030096875520-cPeB28AALjsDqXlrgZFfBP9UmmVJQsl'
@@ -49,7 +50,7 @@ def most_common(hist):
     return t    
 
 
-def print_most_common(hist, num=10):
+def print_most_common(hist, num=20):
     """Prints the most commons words in a histgram and their frequencies.
     hist: histogram (map from word to frequency)
     num: number of words to print
@@ -77,7 +78,9 @@ def main():
 
     words = process_file('text')
 
-
+    sentence = "statuses"
+    score = SentimentIntensityAnalyzer().polarity_scores(sentence)
+    print(score)
 
 if __name__ == '__main__':
     main()
