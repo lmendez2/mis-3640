@@ -2,6 +2,7 @@ from twython import Twython
 from collections import Counter
 import random 
 import string
+import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -78,10 +79,12 @@ def main():
     cnt_ = Counter(hist_1)   
     print(cnt_.most_common(5))
 
+    # hist_1 = "statuses"
+    # sentence = "statuses"
+    # score = SentimentIntensityAnalyzer().polarity_scores(hist_1)
+    # print(score)
 
-    sentence = "statuses"
-    score = SentimentIntensityAnalyzer().polarity_scores(sentence)
-    print(score)
+    
 
 
 if __name__ == '__main__':
