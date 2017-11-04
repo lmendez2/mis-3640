@@ -1,4 +1,5 @@
 from twython import Twython
+from collections import Counter
 import random 
 import string
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -16,7 +17,7 @@ def process_data():
     t = Twython(CONSUMER_KEY, CONSUMER_SECRET,
     TOKEN, TOKEN_SECRET)
 
-    data = t.search(q="Dodgers", count=50)
+    data = t.search(q="Dodgers", count=150)
     return data
 
 
@@ -39,40 +40,34 @@ def process_file(data):
 
 def stop_words(hist):
     stop_words = set(stopwords.words('english'))
-    word_tokens = word_tokenize(hist)
 
-    filtered_tweets = [w for w in word_tokenize if not w in stop_words]
+    #filtered_tweets = [w for w in word_tokenize if not w in stop_words]
     hist_1 = []
-    for w in word_tokens: 
+    for w in hist.keys(): 
         if w not in stop_words:
             hist_1.append(w)
     return hist_1
 
-def most_common(hist_1):
-    """Makes a list of word-freq pairs in descending order of frequency.
-    hist: map from word to frequency
-    returns: list of (frequency, word) pairs
-    """
-    t = []
-    for key, value in hist.items():
-        t.append((value, key))
-
-    t.sort()
-    t.reverse()
-    return t    
+# def most_common(hist_1):
+#     """Makes a list of word-freq pairs in descending order of frequency.
+#     hist: map from word to frequency
+#     returns: list of (frequency, word) pairs
+#     """
+#     cnt = Counter(hist_1)   
+#     print cnt_.most_common(10)
 
 
 
 
-def print_most_common(hist_1, num=20):
-    """Prints the most commons words in a histgram and their frequencies.
-    hist: histogram (map from word to frequency)
-    num: number of words to print
-    """
-    t = most_common(hist)
-    print('The most common words are:')
-    for freq, word in t[:num]:
-        print(word, '\t', freq)
+# def print_most_common(hist_1, num=20):
+#     """Prints the most commons words in a histgram and their frequencies.
+#     hist: histogram (map from word to frequency)
+#     num: number of words to print
+#     """
+#     t = most_common(hist_1)
+#     print('The most common words are:')
+#     for freq, word in t[:num]:
+#         print(word, '\t', freq)
 
 def main():
     data = process_data()
@@ -80,10 +75,8 @@ def main():
     hist_1 = stop_words(hist)
     print(hist_1)
 
-    t= most_common(hist_1)
-    print("The Most Common words are:")
-    for freq, word in t[0:20]:
-        print(word, '\t', freq)
+    cnt_ = Counter(hist_1)   
+    print(cnt_.most_common(5))
 
 
     sentence = "statuses"
