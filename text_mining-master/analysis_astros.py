@@ -37,59 +37,10 @@ def process_file(data):
             hist[word] = hist.get(word, 0) + 1 
     return hist
 
-def stop_words(hist):
-    stop_words = set(stopwords.words('english'))
-    word_tokens = word_tokenize(hist)
-
-    filtered_tweets = [w for w in word_tokenize if not w in stop_words]
-    hist_1 = []
-    for w in word_tokens: 
-        if w not in stop_words:
-            hist_1.append(w)
-    return hist_1
-
-def most_common(hist_1):
-    """Makes a list of word-freq pairs in descending order of frequency.
-    hist: map from word to frequency
-    returns: list of (frequency, word) pairs
-    """
-    t = []
-    for key, value in hist.items():
-        t.append((value, key))
-
-    t.sort()
-    t.reverse()
-    return t    
-
-
-
-
-def print_most_common(hist_1, num=20):
-    """Prints the most commons words in a histgram and their frequencies.
-    hist: histogram (map from word to frequency)
-    num: number of words to print
-    """
-    t = most_common(hist)
-    print('The most common words are:')
-    for freq, word in t[:num]:
-        print(word, '\t', freq)
-
 def main():
     data = process_data()
     hist = process_file(data)
-    hist_1 = stop_words(hist)
-    print(hist_1)
-
-    t= most_common(hist_1)
-    print("The Most Common words are:")
-    for freq, word in t[0:20]:
-        print(word, '\t', freq)
-
-
-    sentence = "statuses"
-    score = SentimentIntensityAnalyzer().polarity_scores(sentence)
-    print(score)
-
+    print(hist)
 
 if __name__ == '__main__':
     main()
