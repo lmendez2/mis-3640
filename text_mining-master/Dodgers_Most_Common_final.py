@@ -65,7 +65,7 @@ def main():
 
     t = most_common(hist)
     print('The most common words are:')
-    for freq, word in t[0:50]:
+    for freq, word in t[0:50]: ## getting fifty since most are insignificant to analysis
         print(word, '\t', freq)
 
 
