@@ -68,6 +68,18 @@ def messagedisplay(text):
     time.sleep(3)
     gameloop()
 
+def play(x,y,w,h,action = None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed() 
+
+    if x + w > mouse[0] > x and y + h > mouse [1] > y: 
+        homehover(0,0)
+        if click[0] == 1 and action !=None:
+            if action == "play":
+                gameloop()
+    else:
+        homescreen(0,0)
+
 ##what happens when crash
 def crash():
     messagedisplay("You crashed")
@@ -80,15 +92,10 @@ def startmenu():
             if event.type == pygame.QUIT:
                 pygame.quit
                 quit()
-        mouse = pygame.mouse.get_pos() 
-        if 447 + 403 > mouse[0] > 447 and 650 + 90 > mouse [1] > 650: 
-            homehover(0,0)
-        else:
-            homescreen(0,0)
+
+        play(447,650,403,90,"play")
         pygame.display.update()
         clock.tick(20)
-
-
 
 #gameloop
 def gameloop():
@@ -117,6 +124,7 @@ def gameloop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
             ##when the button is pressed
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -127,6 +135,7 @@ def gameloop():
                     y_change = 5
                 elif event.key == pygame.K_UP:
                     y_change = -5
+
             ##when the button is let go 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -155,6 +164,7 @@ def gameloop():
             oldy = 0 - oldh
             oldx = random.randrange(0,screen_w)
             dodged = dodged + 1
+            old_speed = old_speed + 1
         
         #calculating if player crashed with old man 
         if y < oldy + oldh: 
@@ -164,7 +174,7 @@ def gameloop():
         #new tourist obstacles
         if toury > screen_h:
             toury = 0 - tourh
-            tourx = random.randrange(0,screen_w)
+            tourx = random.randrange(0+tourw,screen_w-tourw)
             dodged = dodged + 2
             tourspeed = tourspeed + 1
 
@@ -175,6 +185,7 @@ def gameloop():
 
         pygame.display.update()
         clock.tick(60)
+
 startmenu()
 gameloop()
 pygame.quit()

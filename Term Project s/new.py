@@ -4,6 +4,9 @@ import random
 #set up
 pygame.init()
 
+# sounds
+crash_sound = pygame.mixer.Sound("no.ogg")
+
 #define colors rgb
 black = (0,0,0)
 white = (255,255,255)
@@ -75,14 +78,17 @@ def play(x,y,w,h,action = None):
     if x + w > mouse[0] > x and y + h > mouse [1] > y: 
         homehover(0,0)
         if click[0] == 1 and action !=None:
-            if action == "play":
-                gameloop()
+            # if action == "play":
+            #     gameloop()
+            action()
     else:
         homescreen(0,0)
 
 ##what happens when crash
 def crash():
+    pygame.mixer.Sound.play(crash_sound)
     messagedisplay("You crashed")
+
 
 ##start menu before game starts
 def startmenu(): 
@@ -93,7 +99,7 @@ def startmenu():
                 pygame.quit
                 quit()
 
-        play(447,650,403,90,"play")
+        play(447,650,403,90,gameloop)
         pygame.display.update()
         clock.tick(20)
 
@@ -164,6 +170,7 @@ def gameloop():
             oldy = 0 - oldh
             oldx = random.randrange(0,screen_w)
             dodged = dodged + 1
+            old_speed = old_speed + 1
         
         #calculating if player crashed with old man 
         if y < oldy + oldh: 
@@ -173,7 +180,7 @@ def gameloop():
         #new tourist obstacles
         if toury > screen_h:
             toury = 0 - tourh
-            tourx = random.randrange(0,screen_w)
+            tourx = random.randrange(0+tourw,screen_w-tourw)
             dodged = dodged + 2
             tourspeed = tourspeed + 1
 
@@ -189,3 +196,4 @@ startmenu()
 gameloop()
 pygame.quit()
 quit()
+    
